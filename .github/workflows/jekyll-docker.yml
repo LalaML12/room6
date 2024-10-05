@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <base href="/" />room6.com<!-- Define la base URL para las rutas relativas -->
+    <meta charset="UTF-8">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="description" content="Servicios tecnológicos confiables: Mantenimiento, reparación, asesoría y más.">  
+    <meta name="author" content="IT Technician Services"> 
+    <title>ROOM 6 - Servicios Técnicos de Confianza</title>
+    <style>
+        :root {
+            --color-neon: #00bfff;
+            --color-background: rgba(0, 0, 0, 0.7);
+            --color-text: #fff;
+            --color-border: #00bfff;
+            --color-button-bg: var(--color-neon);
+        }
+
+        /* ANIMACIONES */
+        @keyframes neon {
+            0% { text-shadow: 0 0 10px var(--color-neon), 0 0 20px var(--color-neon); }
+            50% { text-shadow: 0 0 10px #0000ff, 0 0 20px #0000ff; }
+            100% { text-shadow: 0 0 10px var(--color-neon), 0 0 20px var(--color-neon); }
+        }
+
+        /* ESTILOS GENERALES */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/pagina%20web/ROOM1.png') no-repeat center center fixed; /* Ruta ajustada */
+            background-size: cover;
+            color: var(--color-text);
+        }
+
+        header, .content, footer {
+            background-color: var(--color-background);
+            padding: 20px;
+            border: 2px solid var(--color-border);
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        header h1 {
+            font-size: 6em;
+            animation: neon 2s infinite alternate;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--color-neon);
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--color-border);
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: var(--color-neon);
+            color: #000;
+        }
+
+        .hero {
+            background-color: var(--color-background);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        /* Estilos para los servicios */
+        #servicios ul {
+            list-style-type: none; /* Elimina los puntos */
+            padding: 0; /* Elimina el padding */
+            display: flex;
+            flex-direction: column; /* Cambia a columna */
+        }
+
+        #servicios li {
+            flex: 1 1 100%; /* Un servicio por fila */
+            margin: 10px 0; /* Margen vertical */
+            padding: 10px;
+            background-color: var(--color-background);
+            border: 2px solid var(--color-border);
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            cursor: pointer; /* Cambia el cursor para indicar que es clickeable */
+        }
+
+        .service:hover {
+            transform: scale(1.05);
+        }
+
+        .service-details {
+            display: none;
+            margin-top: 10px; /* Espacio entre el servicio y sus detalles */
+            padding: 10px;
+            background-color: #222;
+            border: 1px solid var(--color-border);
+            border-radius: 5px;
+        }
+
+        .service-details.show {
+            display: block;
+        }
+
+        /* FORMULARIO DE CONTACTO */
+        form {
+            display: flex;
+            flex-direction: column; /* Para apilar los elementos verticalmente */
+            gap: 10px; /* Espacio entre los campos */
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 2px solid var(--color-border);
+            border-radius: 5px;
+            background-color: #222;
+            color: var(--color-text);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #00ffff;
+        }
+
+        button {
+            background-color: var(--color-button-bg);
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #000;
+            color: var(--color-neon);
+            transform: scale(1.05);
+        }
+
+        /* AJUSTES RESPONSIVOS */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3em;
+                margin-bottom: 10px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+            }
+
+            header, .content, footer {
+                padding: 10px;
+                margin: 5px;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const services = document.querySelectorAll('.service');
+            services.forEach(service => {
+                service.addEventListener('click', function() {
+                    // Cierra los demás detalles
+                    services.forEach(s => {
+                        if (s !== this) {
+                            s.querySelector('.service-details').classList.remove('show');
+                        }
+                    });
+                    // Alterna el detalle del servicio actual
+                    const details = this.querySelector('.service-details');
+                    details.classList.toggle('show');
+                });
+
+                // Permitir apertura/cierre al presionar "Enter"
+                service.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        this.click();
+                    }
+                });
+            });
+
+            // Cierra los detalles al hacer clic fuera de cualquier servicio
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.service')) {
+                    services.forEach(s => {
+                        s.querySelector('.service-details').classList.remove('show');
+                    });
+                }
+            });
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('Formulario enviado');
+            });
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>ROOM 6</h1>
+    <nav>
+        <a href="#inicio" aria-label="Ir a inicio">Inicio</a>
+        <a href="#informacion" aria-label="Ir a información">Información</a>
+        <a href="#servicios" aria-label="Ir a servicios">Servicios</a>
+        <a href="#contactos" aria-label="Ir a contactos">Contactos</a>
+    </nav>
+</header>
+
+<main>
+    <div class="hero">
+        <h1>Bienvenido a Tu Solución</h1>
+        <p>Tu socio de confianza en servicios tecnológicos</p>
+    </div>
+
+    <section id="informacion" class="content">
+        <h2>¿Qué ofrecemos? - Soluciones tecnológicas para tu empresa o cliente</h2>
+        <p>Proporcionamos una variedad de servicios para optimizar el rendimiento tecnológico de tu empresa.</p>
+    </section>
+
+    <section id="servicios" class="content">
+        <h2>Servicios</h2>
+        <ul>
+            <li class="service" tabindex="0" role="button">
+                Mantenimiento preventivo
+                <div class="service-details">
+                    <p>Realización de labores de mantenimiento programadas periódicamente.</p>
+                </div>
+            </li>
+            <li class="service" tabindex="0" role="button">
+                Reparación de equipos
+                <div class="service-details">
+                    <p>Reparación de hardware y software para garantizar un buen funcionamiento.</p>
+                </div>
+            </li>
+            <li class="service" tabindex="0" role="button">
+                Instalación/actualización
+                <div class="service-details">
+                    <p>Instalación de sistemas operativos, software y actualizaciones.</p>
+                </div>
+            </li>
+            <li class="service" tabindex="0" role="button">
+                Asesoría
+                <div class="service-details">
+                    <p>Consultoría personalizada sobre tecnología y mejora de infraestructura.</p>
+                </div>
+            </li>
+            <li class="service" tabindex="0" role="button">
+                Instalación de red
+                <div class="service-details">
+                    <p>Configuración e instalación de redes locales (LAN), incluyendo cableado, routers y puntos de acceso para asegurar una conectividad óptima.</p>
+                </div>
+            </li>
+            <li class="service" tabindex="0" role="button">
+                Armado de PC
+                <div class="service-details">
+                    <p>Ensamblaje de componentes de hardware para crear una computadora personalizada según tus necesidades y especificaciones.</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section id="contactos" class="content">
+        <h2>Contáctame</h2>
+        <form>
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Mensaje</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+        <p>Email: it.tech@example.com</p>
+        <p>Teléfono: +54 9 11 1234-5678</p>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Servicios Técnicos IT. Todos los derechos reservados.</p>
+    <p><a href="#inicio">Volver arriba</a></p>
+</footer>
+
+</body>
+</html>
